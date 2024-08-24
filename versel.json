@@ -1,5 +1,7 @@
 {
-"rewrites": [
-{"source": "/(.*)", "destination": "/"}
-]
+  "rewrites": [
+    { "source": "/movies/:path*", "destination": "/index.html" },
+    { "source": "/:path*", "destination": "/index.html" }
+  ]
 }
+
