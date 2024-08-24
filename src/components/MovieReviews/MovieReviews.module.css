@@ -1,0 +1,20 @@
+
+.reviewsList {
+    list-style-type: none;
+    padding: 0;
+}
+
+.reviewItem {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+}
+
+.reviewItem h4 {
+    color: #8cb8e8;
+    margin-bottom: 5px;
+}
+
+.reviewItem p {
+    color: #000000;
+}

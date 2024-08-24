@@ -1,41 +1,35 @@
 import { useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { searchMovies } from '../../Api';
 import MovieList from '../../components/MovieList/MovieList';
-import axios from 'axios';
+import SearchForm from '../../components/SearchForm/SearchForm';
+import styles from './MoviesPage.module.css';
 
-function MoviesPage() {
-  const [searchParams, setSearchParams] = useSearchParams();
+const MoviesPage = () => {
   const [movies, setMovies] = useState([]);
-  const query = searchParams.get('query') ?? '';
+  const [error, setError] = useState(null);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const searchQuery = e.target.elements.search.value;
-    setSearchParams({ query: searchQuery });
-
+  const handleSearch = async (query) => {
     try {
-      const response = await axios.get(`https://api.themoviedb.org/3/search/movie`, {
-        params: { query: searchQuery },
-        headers: {
-          Authorization: `Bearer YOUR_API_TOKEN`,
-        },
-      });
-      setMovies(response.data.results);
-    } catch (error) {
-      console.error('Failed to search movies', error);
+      const results = await searchMovies(query);
+      if (results.length === 0) {
+        setError('No movies found. Please try a different search.');
+      } else {
+        setError(null);
+      }
+      setMovies(results);
+    } catch (err) {
+      setError('Something went wrong. Please try again later.');
     }
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       <h1>Search Movies</h1>
-      <form onSubmit={handleSubmit}>
-        <input name="search" type="text" defaultValue={query} />
-        <button type="submit">Search</button>
-      </form>
+      <SearchForm onSubmit={handleSearch} />
+      {error && <p>{error}</p>}
       <MovieList movies={movies} />
     </div>
   );
-}
+};
 
 export default MoviesPage;

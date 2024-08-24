@@ -1,18 +1,16 @@
 import { Link } from 'react-router-dom';
-import { getImageUrl } from "../../Api";
-
 import styles from './MovieList.module.css';
 
-function MovieList({ movies }) {
+const MovieList = ({ movies }) => {
   return (
-    <ul className={styles.movieList}>
-      {movies.map((movie) => (
-        <li key={movie.id}>
-          <Link to={`/movies/${movie.id}`}>
+    <ul className={styles.list}>
+      {movies.map(movie => (
+        <li key={movie.id} className={styles.item}>
+          <Link to={`/movies/${movie.id}`} className={styles.link}>
             <img
-              src={getImageUrl(movie.poster_path)}
+              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
               alt={movie.title}
-              className={styles.moviePoster}
+              className={styles.image}
             />
             <p>{movie.title}</p>
           </Link>
@@ -20,6 +18,6 @@ function MovieList({ movies }) {
       ))}
     </ul>
   );
-}
+};
 
 export default MovieList;

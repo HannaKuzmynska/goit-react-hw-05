@@ -1,11 +1,10 @@
 import axios from 'axios';
 
-const API_KEY = 'YOUR_API_KEY'; // Вставте свій API ключ
-const BASE_URL = 'https://api.themoviedb.org/3';
-const IMG_BASE_URL = 'https://image.tmdb.org/t/p/w500';
-const defaultImg = 'https://dummyimage.com/400x600/cdcdcd/000.jpg&text=No+poster';
+const API_KEY = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1MDAxNjRlM2M4YjcyMTQ5MmNhNmE3OTk1NGU1YWVjOSIsIm5iZiI6MTcyNDQwODUzNC45ODY2NzYsInN1YiI6IjY2YmU1OTc4MTdkMmU4NmEwODU1OGU5NiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.lb5w-KKApQIjbrUO5Bs6ehIv8GC46xaJtsIuJ0fGWLQ'; 
 
-const axiosInstance = axios.create({
+const BASE_URL = 'https://api.themoviedb.org/3';
+
+const instance = axios.create({
   baseURL: BASE_URL,
   headers: {
     Authorization: `Bearer ${API_KEY}`,
@@ -13,32 +12,28 @@ const axiosInstance = axios.create({
 });
 
 export const fetchTrendingMovies = async () => {
-  const response = await axiosInstance.get('/trending/movie/day');
+  const response = await instance.get('/trending/movie/day');
   return response.data.results;
 };
 
 export const searchMovies = async (query) => {
-  const response = await axiosInstance.get('/search/movie', {
+  const response = await instance.get('/search/movie', {
     params: { query },
   });
   return response.data.results;
 };
 
 export const fetchMovieDetails = async (movieId) => {
-  const response = await axiosInstance.get(`/movie/${movieId}`);
+  const response = await instance.get(`/movie/${movieId}`);
   return response.data;
 };
 
 export const fetchMovieCast = async (movieId) => {
-  const response = await axiosInstance.get(`/movie/${movieId}/credits`);
+  const response = await instance.get(`/movie/${movieId}/credits`);
   return response.data.cast;
 };
 
 export const fetchMovieReviews = async (movieId) => {
-  const response = await axiosInstance.get(`/movie/${movieId}/reviews`);
+  const response = await instance.get(`/movie/${movieId}/reviews`);
   return response.data.results;
-};
-
-export const getImageUrl = (path) => {
-  return path ? `${IMG_BASE_URL}${path}` : defaultImg;
 };

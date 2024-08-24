@@ -1,0 +1,18 @@
+
+.nav {
+    background-color: #52b1c9;
+    padding: 10px;
+
+}
+
+.link {
+    margin: 0 15px;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.link:hover {
+    color: #ffdd57;
+}

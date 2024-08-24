@@ -1,0 +1,43 @@
+
+.container {
+    padding: 20px;
+}
+
+.details {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.image {
+    width: 300px;
+    border-radius: 10px;
+}
+
+.info {
+    margin-left: 20px;
+}
+
+.info h2 {
+    margin-bottom: 10px;
+}
+
+.additionalInfo {
+    margin-top: 20px;
+}
+
+.link {
+    margin-right: 15px;
+    color: #007bff;
+    font-weight: bold;
+}
+
+.link:hover {
+    color: #ffdd57;
+}
+
+.backButton {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #007bff;
+    font-weight: bold;
+}

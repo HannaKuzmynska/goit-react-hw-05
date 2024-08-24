@@ -1,41 +1,26 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import { fetchMovieReviews } from '../../Api';  
+import styles from './MovieReviews.module.css';
 
-function MovieReviews() {
+const MovieReviews = () => {
   const { movieId } = useParams();
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
-    const fetchReviews = async () => {
-      try {
-        const response = await axios.get(`https://api.themoviedb.org/3/movie/${movieId}/reviews`, {
-          headers: {
-            Authorization: `Bearer YOUR_API_TOKEN`,
-          },
-        });
-        setReviews(response.data.results);
-      } catch (error) {
-        console.error('Failed to fetch reviews', error);
-      }
-    };
-
-    fetchReviews();
+    fetchMovieReviews(movieId).then(setReviews);
   }, [movieId]);
 
   return (
-    <div>
-      <h2>Reviews</h2>
-      <ul>
-        {reviews.map(review => (
-          <li key={review.id}>
-            <h3>Author: {review.author}</h3>
-            <p>{review.content}</p>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <ul className={styles.reviewsList}>
+      {reviews.map(review => (
+        <li key={review.id} className={styles.reviewItem}>
+          <h4>{review.author}</h4>
+          <p>{review.content}</p>
+        </li>
+      ))}
+    </ul>
   );
-}
+};
 
 export default MovieReviews;
