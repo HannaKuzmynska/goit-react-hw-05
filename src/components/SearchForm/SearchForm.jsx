@@ -12,7 +12,7 @@ const SearchForm = ({ onSubmit }) => {
   const handleSubmit = event => {
     event.preventDefault();
     onSubmit(query);
-    setQuery('');  // Очистити поле пошуку після відправки
+    setQuery('');  
   };
 
   return (
