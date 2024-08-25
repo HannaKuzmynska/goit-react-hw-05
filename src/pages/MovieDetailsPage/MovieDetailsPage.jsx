@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense } from 'react';
+import React, { useState, useEffect, Suspense, useRef } from 'react';
 import { useParams, Link, Routes, Route, useLocation } from 'react-router-dom';
 import { fetchMovieDetails } from '../../Api';
 import styles from './MovieDetailsPage.module.css';
@@ -10,6 +10,7 @@ const MovieDetailsPage = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
   const location = useLocation();
+  const locationRef = useRef(location.state);
 
   useEffect(() => {
     fetchMovieDetails(movieId).then(setMovie);
@@ -19,7 +20,7 @@ const MovieDetailsPage = () => {
 
   return (
     <div className={styles.container}>
-      <Link to={location.state?.from ?? '/movies'} className={styles.backButton}>
+      <Link to={locationRef.current?.from ?? '/movies'} className={styles.backButton}>
         Go back
       </Link>
       <div className={styles.details}>
@@ -36,10 +37,10 @@ const MovieDetailsPage = () => {
         </div>
       </div>
       <div className={styles.additionalInfo}>
-        <Link to="cast" state={{ from: location.state?.from }} className={styles.link}>
+        <Link to="cast" state={{ from: locationRef.current?.from }} className={styles.link}>
           Cast
         </Link>
-        <Link to="reviews" state={{ from: location.state?.from }} className={styles.link}>
+        <Link to="reviews" state={{ from: locationRef.current?.from }} className={styles.link}>
           Reviews
         </Link>
       </div>
